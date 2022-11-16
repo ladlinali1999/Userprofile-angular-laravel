@@ -1,0 +1,35 @@
+
+
+ <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+<button class="btn btn-primary me-md-2 mt-2" type="button" routerLink="/addprofile">Add Profile</button>
+</div>
+<hr>
+<div class="container"  style=width:90%>
+    <div class="row">
+<table class="table table-bordered border-black p-10 mt-5 ">
+    <thead>
+      <tr>
+        <!-- <th>ID</th> -->
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">status</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <tr *ngFor="let data of UserData">
+        <!-- <th scope="row"> {{data.pro_id }} </th> -->
+        <td> <a routerLink="/modulepermission/{{data.pro_id}}"> {{data.name}} </a></td>
+        <td>{{data.description}}</td>
+        <td> {{data.status}} </td>
+        <td>
+            <button class="mx-4 btn btn-info" routerLink="/edit/{{data.pro_id}}">edit</button>
+            <button  class="btn btn-danger" (click)="deleteUserD(data.pro_id)">delete</button>
+        </td>
+      </tr>
+     
+      
+    </tbody>
+  </table>
+</div>
+</div>

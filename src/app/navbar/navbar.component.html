@@ -1,0 +1,34 @@
+
+  
+
+  <mat-toolbar color="bg-info">
+    <mat-toolbar-row>
+      <button mat-icon-button>
+        <mat-icon (click)="sidenav.toggle();">menu</mat-icon>
+      </button>
+      <h1 style="text-align: center;">Horizon</h1>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+ 
+  <button class="btn btn-primary me-md-2 mt-2" type="button" routerLink="/addprofile">Add Profile</button>
+    
+  </div> -->
+  
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav opened="true" mode="side"  class="sidenavs">
+      <mat-nav-list>
+        <p class="mx-4 g-4 fs-5"> <b> Menu </b></p><hr> 
+        <a mat-list-nav routerLink="./profile"class="mx-4 format">Profile</a><br><hr>
+        <a mat-list-nav routerLink="/aboutus" class="mx-4 format g-4">About Us</a>
+      </mat-nav-list>
+    </mat-sidenav>
+      <mat-sidenav-content class="bg-white">
+        <div style="height:100vh">
+        <router-outlet></router-outlet>
+        </div>
+      </mat-sidenav-content>
+    
+  </mat-sidenav-container>
+  
+  

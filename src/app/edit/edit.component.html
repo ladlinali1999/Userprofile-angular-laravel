@@ -1,0 +1,231 @@
+
+    <div class="container-fluid mt-5">
+    
+        <form  style="width:70%" (ngSubmit)="updatedeveloper()" class="border border-info p-3" >
+
+          <h1 class="editprofile"><strong> Edit Profile </strong></h1><hr>
+            <!-- Name input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form4Example1">Profile Name :</label>
+              <input type="text" id="form4Example1" name="name" #name= "ngModel" [(ngModel)]="developer.name" class="form-control" />
+              <!-- <div id="emailHelp" class="form-text" *ngIf="name.invalid && name.dirty" style="color:red">Username is required</div> -->
+              
+            </div>
+          
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form4Example2">Description :</label>
+              <input type="text" id="form4Example2"  name="description" [(ngModel)]="developer.description" class="form-control" required />
+              <!-- <div id="emailHelp" class="form-text" *ngIf="mobile.invalid && mobile.dirty" style="color:red">Mobile no is required</div> -->
+              
+            </div>
+          
+            <!-- Message input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form4Example3">Status :</label>
+                <input type="text" id="form4Example3"  name="status" [(ngModel)]="developer.status" class="form-control" />
+                <!-- <div id="emailHelp" class="form-text" *ngIf="email.invalid && email.dirty" style="color:red">Email is required</div> -->
+            </div>
+
+            <p>Edit privileges of this profile :</p>
+
+            <div class="form-outline mb-4">
+              <div class="container mx-2" style="width:98%" >
+                <div class="row">
+            <table class="table table-bordered border-black p-10 mt-3" [formGroup]="form">
+                <thead class="table-primary">
+                  <tr> 
+                    <!-- <input type="checkbox" (change)="bulk($event)"> -->
+                    <!-- <th>ID</th> -->
+                    <th> 
+                      <!-- <input class="form-check-input mx-1" type="checkbox" value="" id="flexCheckDefault" [checked]="checks"> -->
+                      <input class="form-check-input mx-1" type="checkbox" [checked]="checks"  (change)="bulk($event)">Modules</th>
+                    <th> 
+                      <input class="form-check-input mx-1" type="checkbox" value=" "  id="flexCheckDefault" [checked]="checks"   (change)="bulk($event)" >View</th>
+                    <th scope="col">
+                      <input class="form-check-input mx-1" type="checkbox" value="" id="flexCheckDefault" [checked]="checks" [checked]="checks2" (change)="modules($event)">Create</th>
+                    <th scope="col">
+                      <input class="form-check-input mx-1" type="checkbox" value="" id="flexCheckDefault" [checked]="checks" [checked]="checks3" (change)="modulesedit($event)" >Edit</th>
+                    <th scope="col">
+                      <input class="form-check-input mx-1" type="checkbox" value="" id="flexCheckDefault" [checked]="checks" [checked]="checks4" (change)="modulesdelete($event)">Delete</th>
+                      <th>Data</th>
+                  </tr>
+                </thead>
+                <tbody class="table-group-divider"  formArrayName="passenger" *ngFor="let passengerGroup of passenger?.controls; let i = index;">
+                  
+                  <tr [formGroupName]="i">
+                  
+                    <td>  
+<!-- 
+                      <ng-container *ngIf="view == '1' || create =='1' || edit == '1' || delete == '1'; else templateA">
+                        <input class="form-check-input mx-1" type="checkbox" [checked]="on">
+                        </ng-container>
+                      <ng-template #templateA>
+                        <input class="form-check-input mx-1" type="checkbox" [checked]="off">
+                      </ng-template> -->
+                     
+                       {{modulename[i]}} 
+                      </td>
+                    <td> 
+                      <ng-container *ngIf="view1[i] == '1'; else templateA">
+                        <input class="form-check-input mx-1" type="checkbox" formControlName="view1" value="{{view1[i]}}"  [(ngModel)]="view1[i]">
+                        </ng-container>
+                      <ng-template #templateA>
+                        <input class="form-check-input mx-1"  type="checkbox" formControlName="view1" value="{{view1[i]}}"   [(ngModel)]="view1[i]">
+                      </ng-template>
+                        </td> 
+                    <td>
+                      <ng-container *ngIf="create1[i] == '1'; else templateB">
+                        <input class="form-check-input mx-1" type="checkbox" formControlName="create1" value="{{create1[i]}}"  [(ngModel)]="create1[i]">
+                        </ng-container>
+                      <ng-template #templateB>
+                        <input class="form-check-input mx-1"  type="checkbox" formControlName="create1" value="{{create1[i]}}"   [(ngModel)]="create1[i]">
+                      </ng-template>
+                     </td>
+                    <td> 
+                      <ng-container *ngIf="edit1[i] == '1'; else templateC">
+                        <input class="form-check-input mx-1" type="checkbox" formControlName="edit1" value="{{edit1[i]}}"  [(ngModel)]="edit1[i]">
+                        </ng-container>
+                      <ng-template #templateC>
+                        <input class="form-check-input mx-1"  type="checkbox" formControlName="edit1" value="{{edit1[i]}}"   [(ngModel)]="edit1[i]">
+                      </ng-template>
+                       </td>
+                     <td> 
+                      <ng-container *ngIf="delete1[i] == '1'; else templateD">
+                        <input class="form-check-input mx-1" type="checkbox" formControlName="delete1" value="{{delete1[i]}}"  [(ngModel)]="delete1[i]">
+                        </ng-container>
+                      <ng-template #templateD>
+                        <input class="form-check-input mx-1"  type="checkbox" formControlName="delete1" value="{{delete1[i]}}"   [(ngModel)]="delete1[i]">
+                      </ng-template>
+                        </td>
+                    <td>
+                        <ng-container *ngIf="rowindex==i+1; else templateE">
+                          <button type="button" *ngIf="down" (click)="toggleOn(i+1)">
+                            <i class="bi bi-chevron-down"></i>
+                          </button>
+                          <button type="button" *ngIf="up" (click)="toggleOff(i)">
+                            <i class="bi bi-chevron-up"></i>
+                          </button>
+                        </ng-container>
+                        <ng-template #templateE>
+                          <button type="button" (click)="toggleOn(i+1)">
+                            <i class="bi bi-chevron-down"></i>
+                          </button>
+                        </ng-template>
+                    </td>
+                  </tr>
+                  <tr>
+               
+                    <td colspan="6" *ngIf="rowindex==i+1">
+                     
+                      <!-- <ng-container  *ngIf="this.id==l+1"> -->
+                        <!-- <div *ngFor="let row of Fielddata">
+                           {{row.field_name}}
+    
+                       
+                         
+                           <h1>asdff</h1>
+                          </div> -->
+                          <!-- <div class="col-md-6 col-lg-4 col-sm-12"> -->
+    
+                            <div class="container">
+                              <div class="row mt-2">
+                                <div class="col-sm-12 d-flex justify-content-between">
+                                 <div class="pull-left">
+                                 
+                                   <h3><strong>Fields</strong></h3>
+                                 
+                                 </div>
+                                 <div class="pull-right d-flex">
+                              
+                                   <span class="mx-2" style="margin: 0 20px;"> <i class="bi bi-circle-fill mx-2"></i>Invisible</span>
+                                   <span class="mx-2" style="margin: 0 20px;"><i class="bi bi-circle-fill mx-2" style="color:orange"></i>Read only</span>
+                                   <span class="mx-2" style="margin: 0 20px;"><i class="bi bi-circle-fill mx-2" style="color:greenyellow"></i>Write</span>
+                                 </div>
+                               </div>
+                              </div>
+                              </div>
+    
+                              
+                        <table class="table table-borderless mt-2">
+                        
+                          <tbody>
+                           <div class="row mx-3">
+                            <tr class="col-lg-4 fieldgrid" *ngFor="let row of Fielddata">
+                              <!-- <div class="col-lg-12"> -->
+                              <!-- <div  style="display:inline-block"> -->
+                              <td>  
+                                
+                                <span class="border slider"> <mat-slider #slider min="0" max="2" step="1" value="1" 
+                                  (change)="updateSetting($event)"></mat-slider> </span>
+                                  <!-- {{row.module_id}} -->
+                                {{row.module_id}} {{row.field_name}}  </td>
+                              <!-- </div> -->
+                            <!-- </div> -->
+                             </tr>
+                           </div>
+                             </tbody>
+                            
+                             </table>
+                            <!-- </div> -->
+                            
+                        
+                      <!-- </ng-container> -->
+                    </td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+            </div>
+
+
+
+
+              </div>
+
+              <button type="submit" class="btn btn-info mx-4" >Submit</button>
+            </form>
+  
+            
+            <!-- <button class="btn btn-primary mx-4"  [disabled]="userform.invalid" >Register</button> -->
+            <!-- <button  class="btn btn-primary mx-3">Update</button>
+            <button  class="btn btn-primary mx-3">Delete</button> -->
+            
+           
+          <!-- <div [formGroup]="form"> -->
+                    <!-- <div formArrayName="passenger"> -->
+                      <!-- <div *ngFor="let passengerGroup of passenger?.controls; let i = index;" [formGroupName]="i"> -->
+
+                      <!-- <tr>
+                        <th scope="col">  
+                          {{modulename[i]}}
+                      </th>  
+                      
+                      <td scope="col">
+                        <input  type="checkbox" formControlName="view1"
+                         value="true" />
+
+                      </td>
+                      <td scope="col">
+                        <input  type="checkbox" formControlName="creates"
+                         value="{{creates[i]}}" />
+
+                      </td>
+                      <td scope="col">
+                        <input  type="checkbox" formControlName="edits"
+                         value="{{edits[i]}}" />
+
+                      </td>
+                      <td scope="col">
+                        <input  type="checkbox" formControlName="deletes"
+                         value="{{deletes[i]}}" />
+
+                      </td> 
+
+                      <td>
+                        <button routerLink="/field"><i class="bi bi-chevron-down" routerLink="/field"></i></button>
+                    </td>
+                      </tr> -->
+
+         

@@ -1,0 +1,239 @@
+<div class="container-fluid mt-5 ">
+
+  <form [formGroup]="userform" style="width:70%" (ngSubmit)="addUsersData()" class="border border-info p-3">
+
+    <h1><strong> Create Profile </strong></h1>
+    <hr>
+    <!-- Name input -->
+    <div class="form-outline mb-4">
+      <label class="form-label" for="form4Example1">Profile Name :</label>
+      <input type="text" id="form4Example1" formControlName="name" name="name" [(ngModel)]="addUsers.name"
+        class="form-control" />
+    </div>
+
+    <!-- Message input -->
+    <div class="form-outline mb-4">
+      <label class="form-label" for="form4Example3">Description :</label>
+      <input type="text" id="form4Example3" formControlName="description" name="description"
+        [(ngModel)]="addUsers.description" class="form-control" />
+
+    </div>
+
+    <div class="form-outline mb-4">
+      <label class="form-label" for="form4Example3">Status :</label>
+      <input type="text" id="form4Example3" formControlName="status" name="status" [(ngModel)]="addUsers.status"
+        class="form-control" />
+    </div>
+
+    <p>Edit privileges of this profile:</p>
+
+    <div class="form-outline mb-4">
+      <div class="container mx-2" style="width:98%">
+        <div class="row">
+          <table class="table table-bordered border-black p-10 mt-3" [formGroup]="form">
+            <thead class="table-primary">
+              <tr>
+                <!-- <input type="checkbox" (change)="bulk($event)"> -->
+                <!-- <th>ID</th> -->
+                <th scope="col">
+                  <!-- <input class="form-check-input mx-1" type="checkbox" value="" id="flexCheckDefault" [checked]="checks"> -->
+                  <input class="form-check-input mx-1" type="checkbox" [checked]="checks"
+                    (change)="bulk($event)">Modules
+                </th>
+                <th scope="col">
+                  <input class="form-check-input mx-1" type="checkbox" value="" id="flexCheckDefault1"
+                    [checked]="checks" (change)="bulk($event)">View
+                </th>
+                <th scope="col">
+                  <input class="form-check-input mx-1" type="checkbox" value="" id="flexCheckDefault2"
+                    [checked]="checks" [checked]="checks2" (change)="modules($event)">Create
+                </th>
+                <th scope="col">
+                  <input class="form-check-input mx-1" type="checkbox" value="" id="flexCheckDefault3"
+                    [checked]="checks" [checked]="checks3" (change)="modulesedit($event)">Edit
+                </th>
+                <th scope="col">
+                  <input class="form-check-input mx-1" type="checkbox" value="" id="flexCheckDefault4"
+                    [checked]="checks" [checked]="checks4" (change)="modulesdelete($event)">Delete
+                </th>
+                <th scope="col">Data</th>
+              </tr>
+
+
+            </thead>
+
+            <tbody class="table-group-divider" formArrayName="passenger" *ngFor="let passengerGroup of passenger?.controls; let i = index; let l = index;">
+
+              <!-- <ng-container> -->
+              <!-- <div [formGroup]="form"> -->
+              <!-- <div formArrayName="passenger"> -->
+              <!-- <div *ngFor="let passengerGroup of passenger?.controls; let i = index;" [formGroupName]="i"> -->
+
+
+              <!-- <th scope="row"> {{data.mper_id }} </th> -->
+
+
+              <!-- <tr *ngFor="let passengerGroup of passenger?.controls; let i = index;" [formGroupName]="i"> -->
+                <tr [formGroupName]="i">
+                
+                  <td scope="col">
+                    {{modulename[i]}}
+
+                    <!-- <input type="text" class="form-control" formControlName="module_id"
+                           value="{{data.module_id}}" /> -->
+                  </td>
+
+                  <td scope="col">
+                    <input type="checkbox" formControlName="views" value="{{views[i]}}" />
+
+                  </td>
+                  <td scope="col">
+                    <input type="checkbox" formControlName="creates" value="{{creates[i]}}" />
+
+                  </td>
+                  <td scope="col">
+                    <input type="checkbox" formControlName="edits" value="{{edits[i]}}" />
+
+                  </td>
+                  <td scope="col">
+                    <input type="checkbox" formControlName="deletes" value="{{deletes[i]}}" />
+
+                  </td>
+
+                  <td>
+
+                    <ng-container *ngIf="rowindex==i+1; else templateB">
+                      <button type="button" *ngIf="down" (click)="toggleOn(i+1)">
+                        <i class="bi bi-chevron-down"></i>
+                          </button>
+                          <button type="button" *ngIf="up" (click)="toggleOff(i)">
+                        <i class="bi bi-chevron-up"></i>
+                      </button>
+                    </ng-container>
+                      <ng-template #templateB>
+                        <button type="button" (click)="toggleOn(i+1)">
+                          <i class="bi bi-chevron-down"></i>
+                        </button>
+
+                      </ng-template>
+
+                  </td>
+
+                 
+              </tr>
+              <tr>
+               
+                <td colspan="6" *ngIf="rowindex==i+1">
+                 
+        
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-sm-12 d-flex justify-content-between">
+                             <div class="pull-left">
+                             
+                               <h3><strong>Fields</strong></h3>
+                             
+                             </div>
+                             <div class="pull-right d-flex">
+                          
+                               <span class="mx-2" style="margin: 0 20px;"> <i class="bi bi-circle-fill mx-2"></i>Invisible</span>
+                               <span class="mx-2" style="margin: 0 20px;"><i class="bi bi-circle-fill mx-2" style="color:orange"></i>Read only</span>
+                               <span class="mx-2" style="margin: 0 20px;"><i class="bi bi-circle-fill mx-2" style="color:greenyellow"></i>Write</span>
+                             </div>
+                           </div>
+                          </div>
+                          </div>
+
+                          
+                    <table class="table table-borderless mt-2">
+                      <!-- [formGroup]="form1" -->
+                    
+                      <tbody>
+                        <!-- [formGroupName]="i" -->
+                        <!-- *ngFor="let addfieldGroup of addfield?.controls; let i=index;" formArrayName="addfield" -->
+                       <!-- <div class="row mx-3"> -->
+                        <tr class="col-lg-4 fieldgrid" *ngFor="let row of Fielddata; let i=index;">
+                          <!-- [formGroupName]="i" formArrayName="addfield" *ngFor="let addfieldGroup of addfield?.controls; let i=index;" -->
+
+
+                          
+                          <!-- <div class="col-lg-12"> --> 
+                          <!-- <div  style="display:inline-block"> -->
+                            
+                          <td> 
+                             <!-- {{field_name[i]}} -->
+
+                            
+                            <span class="border slider mx-2">
+                         
+                
+                               <!-- <input class="mx-3"  type="range"  min="0" max="2" step="1"> -->
+                              <!-- {{row.Fielddata}}   -->
+                             
+
+                              <!-- <i class="bi bi-circle-fill mx-2" style="color:orange"></i> -->
+                              <!-- <mat-slider #slider min=" {{val_min}} " max=" {{val_max}} " step="1" value ="slider" 
+                              (change)="onToggleChange($event, i)" (userChangeStart)="valueChange(i)"></mat-slider> -->
+
+                              <mat-slider #slider  value="{{slider.value}}" min=" {{val_min}} " max=" {{val_max}} " step="1"
+                              (change)="onToggleChange($event, i)" id="{{row.fielddata_id}}"></mat-slider>
+
+                             
+                             
+                               
+
+                                <!-- formControlName="write" [value] ="{{write[i]}}" -->
+                              
+
+                            </span>
+                            {{row.field_name}}  
+                            <!-- {{slider.value}}   {{i}} -->
+                             
+                              
+                               </td>
+                               <!-- <td>{{row.field_name}} </td> -->
+
+                               <!-- (change)="updateSetting($event)"  -->
+
+                             <!-- <td><span class="border slider"> <mat-slider #slider min="0" max="2" step="1" value="0" 
+                              id="slider{{i}}"></mat-slider> </span>
+                             {{row.module_id}}
+                            {{row.field_name}}</td> --> 
+                          <!-- </div> -->
+                        <!-- </div> -->
+                         </tr>
+                       <!-- </div> -->
+                         </tbody>
+                        
+                         </table>
+                        <!-- </div> -->
+                        
+                    
+                  <!-- </ng-container> -->
+                </td>
+              </tr>
+
+            <!-- </ng-container> -->
+          
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mx-4">Save</button>
+
+    <button class="btn btn-primary mx-2">Cancel</button>
+
+  </form>
+</div>
+
+<!-- <button type="button" (click)="showTable()">
+        <i class="bi bi-chevron-down" *ngIf="show" value="0"></i>
+            
+        <i class="bi bi-chevron-up" *ngIf="hide" value="1"></i> 
+        
+    </button> -->
+
+<!-- <tr><app-fielddata *ngIf="show1"></app-fielddata></tr> -->
